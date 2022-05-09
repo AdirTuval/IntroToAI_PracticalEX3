@@ -60,7 +60,6 @@ class PlanGraphLevel(object):
         self.actionLayer.addAction(action) adds action to the current action layer
         """
         all_actions = PlanGraphLevel.actions
-        "*** YOUR CODE HERE ***"
         for action in all_actions:
             if previous_proposition_layer.all_preconds_in_layer(action):
                 add_action = True
@@ -143,8 +142,10 @@ class PlanGraphLevel(object):
         """
         previous_proposition_layer = previous_layer.get_proposition_layer()
         previous_layer_mutex_proposition = previous_proposition_layer.get_mutex_props()
-
-        "*** YOUR CODE HERE ***"
+        self.update_action_layer(previous_proposition_layer)
+        self.update_mutex_actions(previous_layer_mutex_proposition)
+        self.update_proposition_layer()
+        self.update_mutex_proposition()
 
     def expand_without_mutex(self, previous_layer):
         """
