@@ -61,6 +61,17 @@ class PlanGraphLevel(object):
         """
         all_actions = PlanGraphLevel.actions
         "*** YOUR CODE HERE ***"
+        for action in all_actions:
+            if previous_proposition_layer.all_preconds_in_layer(action):
+                add_action = True
+                for prop1, prop2 in itertools.product(action.get_pre(), action.get_pre()):
+                    if previous_proposition_layer.is_mutex(prop1, prop2):
+                        add_action = False
+                        break
+                if add_action:
+                    self.action_layer.add_action(action)
+
+
 
     def update_mutex_actions(self, previous_layer_mutex_proposition):
         """
