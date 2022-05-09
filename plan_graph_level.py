@@ -146,6 +146,7 @@ def have_competing_needs(a1, a2, mutex_props):
           returns true if p and q are mutex in the previous level
     """
     "*** YOUR CODE HERE ***"
+    a = 5
 
 
 def mutex_propositions(prop1, prop2, mutex_actions_list):
