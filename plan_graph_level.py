@@ -1,3 +1,5 @@
+import itertools
+
 from action_layer import ActionLayer
 from util import Pair
 from proposition import Proposition
@@ -59,6 +61,15 @@ class PlanGraphLevel(object):
         """
         all_actions = PlanGraphLevel.actions
         "*** YOUR CODE HERE ***"
+        for action in all_actions:
+            if previous_proposition_layer.all_preconds_in_layer(action):
+                add_action = True
+                for prop1, prop2 in itertools.combinations(action.get_pre(), 2):
+                    if previous_proposition_layer.is_mutex(prop1, prop2):
+                        add_action = False
+                        break
+                if add_action:
+                    self.action_layer.add_action(action)
 
     def update_mutex_actions(self, previous_layer_mutex_proposition):
         """
@@ -72,6 +83,10 @@ class PlanGraphLevel(object):
         """
         current_layer_actions = self.action_layer.get_actions()
         "*** YOUR CODE HERE ***"
+        for action1, action2 in itertools.combinations(current_layer_actions, 2):
+            if mutex_actions(action1, action2, previous_layer_mutex_proposition):
+                self.action_layer.add_mutex_actions(action1, action2)
+
 
     def update_proposition_layer(self):
         """
@@ -146,7 +161,14 @@ def have_competing_needs(a1, a2, mutex_props):
           returns true if p and q are mutex in the previous level
     """
     "*** YOUR CODE HERE ***"
+<<<<<<< HEAD
     a = 5
+=======
+    for p, q in itertools.product(a1.get_pre(), a2.get_pre()):
+        if Pair(p, q) in mutex_props:
+            return True
+    return False
+>>>>>>> 62cfb666a1deb7f5bc43e26ecf8880cd560c3906
 
 
 def mutex_propositions(prop1, prop2, mutex_actions_list):
@@ -158,3 +180,5 @@ def mutex_propositions(prop1, prop2, mutex_actions_list):
     prop1.get_producers() returns the set of all the possible actions in the layer that have prop1 on their add list
     """
     "*** YOUR CODE HERE ***"
+    return all([Pair(act1, act2) in mutex_actions_list
+                for act1, act2 in itertools.product(prop1.get_producers(), prop2.get_producers())])
