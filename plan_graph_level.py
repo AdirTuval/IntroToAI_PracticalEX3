@@ -103,7 +103,19 @@ class PlanGraphLevel(object):
 
         """
         current_layer_actions = self.action_layer.get_actions()
-        "*** YOUR CODE HERE ***"
+        prop_dict = dict()
+        for action in current_layer_actions:
+            for prop in action.get_pre():
+                if prop in prop_dict:
+                    prop_dict[prop].append(action)
+                else:
+                    prop_dict[prop] = [action]
+
+        for prop, action_list in prop_dict.items():
+            new_prop = Proposition(prop.get_name())
+            new_prop.set_producers(action_list)
+            self.proposition_layer.add_mutex_prop(new_prop)
+
 
     def update_mutex_proposition(self):
         """
@@ -161,14 +173,10 @@ def have_competing_needs(a1, a2, mutex_props):
           returns true if p and q are mutex in the previous level
     """
     "*** YOUR CODE HERE ***"
-<<<<<<< HEAD
-    a = 5
-=======
     for p, q in itertools.product(a1.get_pre(), a2.get_pre()):
         if Pair(p, q) in mutex_props:
             return True
     return False
->>>>>>> 62cfb666a1deb7f5bc43e26ecf8880cd560c3906
 
 
 def mutex_propositions(prop1, prop2, mutex_actions_list):
