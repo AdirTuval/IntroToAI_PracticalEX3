@@ -1,3 +1,5 @@
+import itertools
+
 from action_layer import ActionLayer
 from util import Pair
 from proposition import Proposition
@@ -146,6 +148,10 @@ def have_competing_needs(a1, a2, mutex_props):
           returns true if p and q are mutex in the previous level
     """
     "*** YOUR CODE HERE ***"
+    for p, q in itertools.product(a1.get_pre(), a2.get_pre()):
+        if Pair(p, q) in mutex_props:
+            return True
+    return False
 
 
 def mutex_propositions(prop1, prop2, mutex_actions_list):
