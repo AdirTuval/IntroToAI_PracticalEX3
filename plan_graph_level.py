@@ -64,14 +64,12 @@ class PlanGraphLevel(object):
         for action in all_actions:
             if previous_proposition_layer.all_preconds_in_layer(action):
                 add_action = True
-                for prop1, prop2 in itertools.product(action.get_pre(), action.get_pre()):
+                for prop1, prop2 in itertools.combinations(action.get_pre(), 2):
                     if previous_proposition_layer.is_mutex(prop1, prop2):
                         add_action = False
                         break
                 if add_action:
                     self.action_layer.add_action(action)
-
-
 
     def update_mutex_actions(self, previous_layer_mutex_proposition):
         """
@@ -85,6 +83,10 @@ class PlanGraphLevel(object):
         """
         current_layer_actions = self.action_layer.get_actions()
         "*** YOUR CODE HERE ***"
+        for action1, action2 in itertools.combinations(current_layer_actions, 2):
+            if mutex_actions(action1, action2, previous_layer_mutex_proposition):
+                self.action_layer.add_mutex_actions(action1, action2)
+
 
     def update_proposition_layer(self):
         """
