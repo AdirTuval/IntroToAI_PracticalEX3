@@ -89,6 +89,7 @@ class GraphPlan(object):
                     # if size of nogood didn't change, means there's nothing more to do. We failed.
                     return None
                 size_no_good = len(self.no_goods[level])  # we didn't fail yet! update size of no good
+                # comment
         return plan_solution
 
     def extract(self, graph, sub_goals, level):
