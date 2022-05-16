@@ -4,6 +4,7 @@ from proposition_layer import PropositionLayer
 from plan_graph_level import PlanGraphLevel
 from pgparser import PgParser
 from action import Action
+
 try:
     from search import SearchProblem
     from search import a_star_search
@@ -69,8 +70,6 @@ class PlanningProblem:
                 triplets.append((frozenset(new_state), action, 1))
         return triplets
 
-
-
     @staticmethod
     def get_cost_of_actions(actions):
         return len(actions)
@@ -114,8 +113,8 @@ def max_level(state, planning_problem):
     prop_layer_init = PropositionLayer()
     for prop in state:
         prop_layer_init.add_proposition(prop)
-    pg_init = PlanGraphLevel() 
-    pg_init.set_proposition_layer(prop_layer_init) 
+    pg_init = PlanGraphLevel()
+    pg_init.set_proposition_layer(prop_layer_init)
     graph = [pg_init]
     level = 0
     while planning_problem.goal_state_not_in_prop_layer(graph[-1].get_proposition_layer().get_propositions()):
@@ -127,9 +126,6 @@ def max_level(state, planning_problem):
         if is_fixed(graph, level):
             return float('inf')
     return level
-    
-
-
 
 
 def level_sum(state, planning_problem):
