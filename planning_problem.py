@@ -40,13 +40,13 @@ class PlanningProblem:
         self.expanded = 0
 
     def get_start_state(self):
-        "*** YOUR CODE HERE ***"
+        return self.initialState
 
     def is_goal_state(self, state):
         """
         Hint: you might want to take a look at goal_state_not_in_prop_payer function
         """
-        "*** YOUR CODE HERE ***"
+        return self.goal_state_not_in_prop_layer(state)
 
     def get_successors(self, state):
         """
@@ -72,12 +72,12 @@ class PlanningProblem:
 
 
     @staticmethod
-    def get_cost_of_actions( actions):
+    def get_cost_of_actions(actions):
         return len(actions)
 
     def goal_state_not_in_prop_layer(self, propositions):
         """
-        Helper function that receives a  list of propositions (propositions) and returns False
+        Helper function that receives a list of propositions (propositions) and returns False
         if not all the goal propositions are in that list
         """
         for goal in self.goal:
