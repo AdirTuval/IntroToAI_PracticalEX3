@@ -4,7 +4,6 @@ from proposition_layer import PropositionLayer
 from plan_graph_level import PlanGraphLevel
 from pgparser import PgParser
 from action import Action
-
 try:
     from search import SearchProblem
     from search import a_star_search
