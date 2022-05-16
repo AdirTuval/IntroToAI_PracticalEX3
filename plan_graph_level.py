@@ -113,10 +113,6 @@ class PlanGraphLevel(object):
             new_prop = Proposition(prop.get_name())
             new_prop.set_producers(action_list)
             self.proposition_layer.add_proposition(new_prop)
-<<<<<<< HEAD
-
-=======
->>>>>>> eaf5f054e65e2a89b5107434ee0259c579e67826
 
     def update_mutex_proposition(self):
         """
