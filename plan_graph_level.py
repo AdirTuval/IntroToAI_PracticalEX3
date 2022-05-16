@@ -150,8 +150,12 @@ class PlanGraphLevel(object):
         Questions 11 and 12
         You don't have to use this function
         """
-        previous_layer_proposition = previous_layer.get_proposition_layer()
-        "*** YOUR CODE HERE ***"
+        previous_proposition_layer = previous_layer.get_proposition_layer()
+        # previous_layer_mutex_proposition = previous_proposition_layer.get_mutex_props()
+        self.update_action_layer(previous_proposition_layer)
+        # self.update_mutex_actions(previous_layer_mutex_proposition)
+        self.update_proposition_layer()
+        # self.update_mutex_proposition()
 
 
 def mutex_actions(a1, a2, mutex_props):
