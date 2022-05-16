@@ -46,7 +46,7 @@ class PlanningProblem:
         """
         Hint: you might want to take a look at goal_state_not_in_prop_payer function
         """
-        return self.goal_state_not_in_prop_layer(state)
+        return not self.goal_state_not_in_prop_layer(state)
 
     def get_successors(self, state):
         """
@@ -64,9 +64,9 @@ class PlanningProblem:
         self.expanded += 1
         triplets = []
         for action in self.actions:
-            if action.all_preconds_in_list(state):
-                new_state = list(state) - action.get_delete() + action.get_add()
-                triplets.append(frozenset(new_state), action, 1) 
+            if action.all_preconds_in_list(state) and not action.is_noop():
+                new_state = (set(state) - set(action.get_delete())).union(set(action.get_add()))
+                triplets.append((frozenset(new_state), action, 1))
         return triplets
 
 
@@ -161,9 +161,9 @@ if __name__ == '__main__':
             exit()
 
     prob = PlanningProblem(domain, problem)
-    start = time.clock()
+    start = time.time()
     plan = a_star_search(prob, heuristic)
-    elapsed = time.clock() - start
+    elapsed = time.time() - start
     if plan is not None:
         print("Plan found with %d actions in %.2f seconds" % (len(plan), elapsed))
     else:
