@@ -113,6 +113,10 @@ class PlanGraphLevel(object):
             new_prop = Proposition(prop.get_name())
             new_prop.set_producers(action_list)
             self.proposition_layer.add_proposition(new_prop)
+<<<<<<< HEAD
+
+=======
+>>>>>>> eaf5f054e65e2a89b5107434ee0259c579e67826
 
     def update_mutex_proposition(self):
         """
@@ -189,5 +193,6 @@ def mutex_propositions(prop1, prop2, mutex_actions_list):
     prop1.get_producers() returns the set of all the possible actions in the layer that have prop1 on their add list
     """
     "*** YOUR CODE HERE ***"
-    return all([Pair(act1, act2) in mutex_actions_list
-                for act1, act2 in itertools.product(prop1.get_producers(), prop2.get_producers())])
+    t = [Pair(act1, act2) in mutex_actions_list
+                for act1, act2 in itertools.product(prop1.get_producers(), prop2.get_producers())]
+    return all(t)
