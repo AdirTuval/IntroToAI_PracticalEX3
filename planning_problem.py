@@ -62,7 +62,14 @@ class PlanningProblem:
         Note that a state *must* be hashable!! Therefore, you might want to represent a state as a frozenset
         """
         self.expanded += 1
-        "*** YOUR CODE HERE ***"
+        triplets = []
+        for action in self.actions:
+            if action.all_preconds_in_list(state):
+                new_state = list(state) - action.get_delete() + action.get_add()
+                triplets.append(frozenset(new_state), action, 1) 
+        return triplets
+
+
 
     @staticmethod
     def get_cost_of_actions( actions):
