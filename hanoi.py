@@ -31,7 +31,7 @@ def create_domain_file(domain_file_name, n_, m_):
 
     # 3 Disks action
     total_disks = [(disk1, disk2, disk3) for i, disk1 in enumerate(disks) for disk2, disk3 in permutations(disks[i + 1:],2)]
-    for disks_l, pegs_l in product(total_disks, combinations(pegs,2)):
+    for disks_l, pegs_l in product(total_disks, permutations(pegs,2)):
         peg1, peg2 = pegs_l
         disk1, disk2, disk3 = disks_l
         action_name = f"Name: move3_{disk1}_{disk2}_{disk3}_{peg1}_{peg2}\n" 
@@ -43,7 +43,7 @@ def create_domain_file(domain_file_name, n_, m_):
 
     # 2 Disks action to empty
     for disk1, disk2 in combinations(disks,2):
-        for peg1, peg2 in combinations(pegs,2):
+        for peg1, peg2 in permutations(pegs,2):
             action_name = f"Name: move_to_empty_{disk1}_{disk2}_{peg1}_{peg2}\n"
             pre_and_delete = f"empty_{peg2} on_top_{disk1}_{disk2} clear_{disk1}_{peg1}\n"
             pre = f"pre: {pre_and_delete}"
@@ -53,7 +53,7 @@ def create_domain_file(domain_file_name, n_, m_):
 
     # 2 Disks action from ground
     for disk1, disk2 in combinations(disks,2):
-        for peg1, peg2 in combinations(pegs,2):
+        for peg1, peg2 in permutations(pegs,2):
             action_name = f"Name: move_from_ground_{disk1}_{disk2}_{peg1}_{peg2}\n"
             pre_and_delete = f"ground_{disk1}_{peg1} clear_{disk2}_{peg2} clear_{disk1}_{peg1}\n"
             pre = f"pre: {pre_and_delete}"
@@ -63,7 +63,7 @@ def create_domain_file(domain_file_name, n_, m_):
 
     # Ground to Empty Action
     for disk1 in disks:
-        for peg1, peg2 in combinations(pegs,2):
+        for peg1, peg2 in permutations(pegs,2):
             action_name = f"Name: move_from_ground_to_empty_{disk1}_{peg1}_{peg2}\n"
             pre_and_delete = f"ground_{disk1}_{peg1} clear_{disk1}_{peg1} empty_{peg2}\n"
             pre = f"pre: {pre_and_delete}"
